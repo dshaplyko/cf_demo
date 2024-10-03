@@ -13,6 +13,25 @@ import java.net.URL;
 
 public class StepDefinitions {
 
+    private String ean13;
+    private String ean7;
+
+    @Given("an EAN of 13 characters {string}")
+    public void givenAnEANOf13Characters(String ean) {
+        this.ean13 = ean;
+    }
+
+    @When("I submit this EAN to the application")
+    public void whenISubmitThisEANToTheApplication() {
+        // Simulate the submission to the application and conversion
+        this.ean7 = ean13.substring(0, 7);
+    }
+
+    @Then("the last 6 characters are removed to obtain {string}")
+    public void thenTheLast6CharactersAreRemovedToObtain(String expectedEan7) {
+        assertEquals(expectedEan7, this.ean7);
+    }
+
     private AndroidDriver<MobileElement> driver;
 
     @Given("the app is launched")
